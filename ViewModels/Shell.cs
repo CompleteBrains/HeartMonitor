@@ -1,3 +1,4 @@
+using System.IO.Ports;
 using Caliburn.Micro;
 using ViewModels.Services;
 
@@ -7,8 +8,17 @@ namespace ViewModels
 
     public class Shell : Conductor<IScreen>.Collection.AllActive, IShell
 	{
-		public Shell()
+        private readonly SerialPort send;
+        private SerialPort receive;
+
+        public Shell()
 		{
+            send = new SerialPort("COM2");
+            send.Open();
+
+            receive = new SerialPort("COM3");
+            receive.DataReceived += OnDataReceived;
+            receive.Open();
 		}
 
         [Notify]
@@ -16,7 +26,14 @@ namespace ViewModels
 	    
 	    public void Send()
 	    {
-	        
-	    }
-	}
+            send.WriteLine("Test");
+        }
+
+        private void OnDataReceived(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
+        {
+            SerialPort port = (SerialPort)sender;
+
+            Received = port.ReadLine();
+        }
+    }
 }
