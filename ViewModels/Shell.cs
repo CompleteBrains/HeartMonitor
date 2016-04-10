@@ -4,7 +4,6 @@ using System.IO.Ports;
 using System.Linq;
 using System.Timers;
 using Caliburn.Micro;
-using DrWPF.Windows.Data;
 using MoreLinq;
 using ViewModels.Services;
 
