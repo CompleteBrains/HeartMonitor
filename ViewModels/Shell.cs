@@ -1,5 +1,8 @@
+using System;
 using System.IO.Ports;
+using System.Linq;
 using Caliburn.Micro;
+using MoreLinq;
 using ViewModels.Services;
 
 namespace ViewModels
@@ -26,14 +29,26 @@ namespace ViewModels
 	    
 	    public void Send()
 	    {
-            send.WriteLine("Any text");
+	        var buffer = new byte[24];
+	        buffer[10] = 5;
+            send.Write(buffer, 0, buffer.Length);
+//            send.WriteLine("sdawd");
+
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
         {
             SerialPort port = (SerialPort)sender;
 
-            Received += port.ReadLine();
+            int count = port.BytesToRead;
+            if (count != 24) throw new ArgumentException("Wrong package size: " + count);
+
+            var buffer = new byte[count];
+            var read = port.Read(buffer, 0, buffer.Length);
+            var data = buffer.Select(b => b.ToString())
+                .Aggregate((a, b) => a+b);
+
+            Received = $"Received: {read} bytes\n\nData: {data}";
         }
     }
 }
