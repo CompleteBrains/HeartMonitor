@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Linq;
 using System.Timers;
 using Caliburn.Micro;
+using DrWPF.Windows.Data;
 using MoreLinq;
 using ViewModels.Services;
 
@@ -31,11 +32,11 @@ namespace ViewModels
             timer.Elapsed += (s, a) => Send();
             timer.Start();
 
-            Data = new Dictionary<int, byte>();
+            Data = new ObservableDictionary<int, byte>();
         }
 
         [Notify] public string Received { get; set; }
-        [Notify] public Dictionary<int, byte> Data { get; set; }
+        [Notify] public ObservableDictionary<int, byte> Data { get; set; }
 	    
 	    public void Send()
 	    {
@@ -61,7 +62,7 @@ namespace ViewModels
 
             Received = $"Data: {data}";
 
-            Data.Add(Data.Count, buffer[0]);
+            Data.Add(Data.Count+1, buffer[0]);
         }
     }
 }
