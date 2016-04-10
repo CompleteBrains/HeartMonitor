@@ -1,7 +1,4 @@
 ﻿using Microsoft.Practices.Unity;
-using ViewModels;
-using Views;
-using Shell = ViewModels.Shell;
 
 namespace Application.Compositions
 {
@@ -9,8 +6,8 @@ namespace Application.Compositions
 	{
 		protected override void Initialize()
 		{
-            Container.RegisterType<IShell, Shell>();
-            Container.RegisterType<IDialog, Dialog>();
+            Container.RegisterType<ViewModels.IShell, ViewModels.Shell>(new Constructor());
+            Container.RegisterType<Views.IDialog, Views.Dialog>();
 		}
 	}
 }

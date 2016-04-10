@@ -11,7 +11,6 @@ using NLog;
 using NLog.Config;
 using NLog.Targets;
 using ViewModels;
-using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 
 
 namespace Application

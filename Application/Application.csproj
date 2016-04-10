@@ -111,6 +111,7 @@
     <Compile Include="Bootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Compositions\Aliases.cs" />
     <Compile Include="Compositions\Composition.cs" />
     <Compile Include="ErrorsHandler.cs" />
     <Compile Include="Extensions\BuildTracking.cs" />
