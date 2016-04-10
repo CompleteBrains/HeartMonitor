@@ -32,11 +32,11 @@ namespace ViewModels
             timer.Elapsed += (s, a) => Send();
             timer.Start();
 
-            Data = new ObservableCollection<KeyValuePair<int, byte>>();
+            Data = new ObservableDictionary<int, byte>();
         }
 
         [Notify] public string Received { get; set; }
-        [Notify] public ObservableCollection<KeyValuePair<int, byte>> Data { get; set; }
+        [Notify] public ObservableDictionary<int, byte> Data { get; set; }
 	    
 	    public void Send()
 	    {
@@ -62,8 +62,7 @@ namespace ViewModels
 
             Received = $"Data: {data}";
 
-            Execute.OnUIThread(() => Data.Add(new KeyValuePair<int, byte>(Data.Count + 1, buffer[0])));
-            Data.Add(Data.Count+1, buffer[0]);
+            Execute.OnUIThread(() => Data.Add(Data.Count + 1, buffer[0]));
         }
     }
 }
