@@ -16,7 +16,11 @@
         <Button Name="Send" Content="Send" Style="{StaticResource Style}" />
         <TextBlock Name="Received" Style="{StaticResource Style}"/>
         <charts:Chart Name="Data" MinHeight="500">
-            <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key"/>
+            <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key">
+                <charts:LineSeries.DependentRangeAxis>
+                    <charts:LinearAxis Maximum="255" Orientation="Y"></charts:LinearAxis>
+                </charts:LineSeries.DependentRangeAxis>
+            </charts:LineSeries>
         </charts:Chart> 
     </StackPanel>
 </Window>
