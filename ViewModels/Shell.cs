@@ -26,14 +26,14 @@ namespace ViewModels
 	    
 	    public void Send()
 	    {
-            send.WriteLine("Test");
+            send.WriteLine("Any text");
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
         {
             SerialPort port = (SerialPort)sender;
 
-            Received = port.ReadLine();
+            Received += port.ReadLine();
         }
     }
 }
