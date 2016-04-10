@@ -4,25 +4,28 @@ using System.Reflection;
 using System.Windows;
 using Microsoft.Practices.Unity;
 using NLog;
+using Views;
 
 namespace Application
 {
     public class ErrorsHandler
     {
         private readonly ILogger log;
+        private readonly IDialog dialog;
 
-        public ErrorsHandler(ILogger log)
+        public ErrorsHandler(ILogger log, IDialog dialog)
         {
             this.log = log;
+            this.dialog = dialog;
         }
+
 
         public void OnUnhandledException(Exception exception)
         {
             exception = GetException(exception);
 
             if (!Debugger.IsAttached)
-                MessageBox.Show(exception.Message, exception.TargetSite.ReflectedType?.FullName, MessageBoxButton.OK,
-                                MessageBoxImage.Error);
+                dialog.Show(exception);
 
             log.Fatal(exception);
 

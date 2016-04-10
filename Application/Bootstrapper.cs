@@ -83,7 +83,6 @@ namespace Application
 
 	    protected override void OnStartup(object sender, StartupEventArgs e)
 		{
-	        throw new AccessViolationException();
 			DisplayRootViewFor<IShell>();
 		}
 
