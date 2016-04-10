@@ -15,7 +15,7 @@
     <StackPanel>
         <Button Name="Send" Content="Send" Style="{StaticResource Style}" />
         <TextBlock Name="Received" Style="{StaticResource Style}"/>
-        <charts:Chart Name="Data">
+        <charts:Chart Name="Data" MinHeight="500">
             <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key"/>
         </charts:Chart> 
     </StackPanel>

@@ -60,7 +60,7 @@ namespace ViewModels
             var data = buffer.Select(b => b.ToString("X"))
                              .Aggregate((a, b) => a + b);
 
-            Received = $"Data: {data}";
+            Received = $"Data: {buffer[0]}";
 
             Execute.OnUIThread(() => Data.Add(Data.Count + 1, buffer[0]));
         }
