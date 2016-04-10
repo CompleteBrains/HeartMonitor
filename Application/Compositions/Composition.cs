@@ -1,9 +1,5 @@
 ﻿using Microsoft.Practices.Unity;
-using PerResolve = Microsoft.Practices.Unity.PerResolveLifetimeManager;
-using Constructor = Microsoft.Practices.Unity.InjectionConstructor;
-using Method = Microsoft.Practices.Unity.InjectionMethod;
-using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
-
+using ViewModels;
 
 namespace Application.Compositions
 {
@@ -11,6 +7,7 @@ namespace Application.Compositions
 	{
 		protected override void Initialize()
 		{
+            Container.RegisterType<IShell, Shell>();
 		}
 	}
 }
