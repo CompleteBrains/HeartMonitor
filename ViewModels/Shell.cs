@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Timers;
@@ -29,10 +30,12 @@ namespace ViewModels
             Timer timer = new Timer(100);
             timer.Elapsed += (s, a) => Send();
             timer.Start();
+
+            Data = new List<byte>();
         }
 
-        [Notify]
-	    public string Received { get; set; }
+        [Notify] public string Received { get; set; }
+        [Notify] public List<byte> Data { get; set; }
 	    
 	    public void Send()
 	    {
@@ -40,7 +43,6 @@ namespace ViewModels
 	        random.NextBytes(buffer);
 
             send.Write(buffer, 0, buffer.Length);
-
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
@@ -58,6 +60,8 @@ namespace ViewModels
                              .Aggregate((a, b) => a + b);
 
             Received = $"Data: {data}";
+
+            Data.Add(buffer[0]);
         }
     }
 }
