@@ -14,7 +14,7 @@ namespace ViewModels
 	{
         private readonly SerialPort send;
         private SerialPort receive;
-        private Random random;
+        private readonly Random random;
 
         public Shell()
 		{
@@ -29,7 +29,7 @@ namespace ViewModels
             Timer timer = new Timer(100);
             timer.Elapsed += (s, a) => Send();
             timer.Start();
-		}
+        }
 
         [Notify]
 	    public string Received { get; set; }
@@ -48,14 +48,16 @@ namespace ViewModels
             SerialPort port = (SerialPort)sender;
 
             int count = port.BytesToRead;
-            if (count != 24) throw new ArgumentException("Wrong package size: " + count);
+//            if (count != 24) throw new ArgumentException("Wrong package size: " + count);
+            if (count != 24) return;
 
             var buffer = new byte[count];
-            var read = port.Read(buffer, 0, buffer.Length);
-            var data = buffer.Select(b => b.ToString())
-                .Aggregate((a, b) => a+b);
+            port.Read(buffer, 0, buffer.Length);
 
-            Received = $"Received: {read} bytes\n\nData: {data}";
+            var data = buffer.Select(b => b.ToString("X"))
+                             .Aggregate((a, b) => a + b);
+
+            Received = $"Data: {data}";
         }
     }
 }
