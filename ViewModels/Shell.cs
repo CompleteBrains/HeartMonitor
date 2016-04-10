@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Timers;
@@ -32,11 +33,11 @@ namespace ViewModels
             timer.Elapsed += (s, a) => Send();
             timer.Start();
 
-            Data = new ObservableDictionary<int, byte>();
+            Data = new ObservableCollection<KeyValuePair<int, byte>>();
         }
 
         [Notify] public string Received { get; set; }
-        [Notify] public ObservableDictionary<int, byte> Data { get; set; }
+        [Notify] public ObservableCollection<KeyValuePair<int, byte>> Data { get; set; }
 	    
 	    public void Send()
 	    {
@@ -61,9 +62,9 @@ namespace ViewModels
                              .Aggregate((a, b) => a + b);
 
             Received = $"Data: {data}";
-            Dispatcher.CurrentDispatcher.Invoke(() => Data.Add(Data.Count + 1, buffer[0]), DispatcherPriority.Send);
+            //            Dispatcher.CurrentDispatcher.Invoke(() => Data.Add(new KeyValuePair<int, byte>(Data.Count + 1, buffer[0])), DispatcherPriority.Send);
 
-            ;
+            Execute.OnUIThread(() => Data.Add(new KeyValuePair<int, byte>(Data.Count + 1, buffer[0])));
         }
     }
 }
