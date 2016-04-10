@@ -1,6 +1,7 @@
 using System;
 using System.IO.Ports;
 using System.Linq;
+using System.Timers;
 using Caliburn.Micro;
 using MoreLinq;
 using ViewModels.Services;
@@ -13,6 +14,7 @@ namespace ViewModels
 	{
         private readonly SerialPort send;
         private SerialPort receive;
+        private Random random;
 
         public Shell()
 		{
@@ -22,6 +24,11 @@ namespace ViewModels
             receive = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
             receive.DataReceived += OnDataReceived;
             receive.Open();
+
+            random = new Random();
+            Timer timer = new Timer(100);
+            timer.Elapsed += (s, a) => Send();
+            timer.Start();
 		}
 
         [Notify]
@@ -30,9 +37,9 @@ namespace ViewModels
 	    public void Send()
 	    {
 	        var buffer = new byte[24];
-	        buffer[10] = 5;
+	        random.NextBytes(buffer);
+
             send.Write(buffer, 0, buffer.Length);
-//            send.WriteLine("sdawd");
 
         }
 
