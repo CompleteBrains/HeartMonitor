@@ -20,23 +20,24 @@ namespace Application
 	{
 		private IUnityContainer container;
 
-		public Bootstrapper()
-		{
-			Initialize();
-		}
+	    public Bootstrapper()
+	    {
+	        Initialize();
+	    }
 
-		protected override void Configure()
+	    protected override void Configure()
 		{
 			container = new UnityContainer();
 			container.AddNewExtension<Composition>();
 
-			ConfigureCaliburn();
-			ConfigureNLog();
+	        ConfigureCaliburn();
+	        ConfigureNLog();
+
+	        AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 		}
 
-		private void ConfigureCaliburn()
+	    private void ConfigureCaliburn()
 		{
-			AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
 			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (Views.Shell)));
 
@@ -44,7 +45,7 @@ namespace Application
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
 		}
 
-		private void ConfigureNLog()
+	    private void ConfigureNLog()
 		{
 			var config = new LoggingConfiguration();
 
@@ -61,7 +62,7 @@ namespace Application
 			container.AddNewExtension<LogCreation>();
 		}
 
-		protected override object GetInstance(Type service, string key)
+	    protected override object GetInstance(Type service, string key)
 		{
 			var instance = container.Resolve(service, key);
 			if (instance != null)
@@ -70,52 +71,35 @@ namespace Application
 			throw new InvalidOperationException("Could not locate any instances.");
 		}
 
-		protected override IEnumerable<object> GetAllInstances(Type service)
+	    protected override IEnumerable<object> GetAllInstances(Type service)
 		{
 			return container.ResolveAll(service);
 		}
 
-		protected override void BuildUp(object instance)
+	    protected override void BuildUp(object instance)
 		{
 			container.BuildUp(instance);
 		}
 
-		protected override void OnStartup(object sender, StartupEventArgs e)
+	    protected override void OnStartup(object sender, StartupEventArgs e)
 		{
+	        throw new AccessViolationException();
 			DisplayRootViewFor<IShell>();
 		}
 
-		protected override void OnExit(object sender, EventArgs e)
+	    private void OnUnhandledException(object sender, UnhandledExceptionEventArgs arguments)
+	    {
+            var handler = container.Resolve<ErrorsHandler>();
+	        handler.OnUnhandledException((Exception) arguments.ExceptionObject);
+
+            OnExit(sender, arguments);
+        }
+
+        protected override void OnExit(object sender, EventArgs e)
 		{
 			container.Resolve<ILogger>().Info("End\n");
 
 			base.OnExit(sender, e);
-		}
-
-		private void OnUnhandledException(object sender, UnhandledExceptionEventArgs arguments)
-		{
-			var exception = GetException((Exception) arguments.ExceptionObject);
-
-			if (!Debugger.IsAttached)
-				MessageBox.Show(exception.Message, exception.TargetSite.ReflectedType?.FullName, MessageBoxButton.OK, MessageBoxImage.Error);
-
-			container.Resolve<ILogger>().Fatal(exception);
-
-			OnExit(sender, arguments);
-		}
-
-		private static Exception GetException(Exception unhandled)
-		{
-			Exception exception;
-
-			if (unhandled is ResolutionFailedException)
-				exception = unhandled.InnerException;
-			else if (unhandled is TargetInvocationException)
-				exception = unhandled.InnerException.InnerException;
-			else
-				exception = unhandled;
-
-			return exception;
 		}
 	}
 }

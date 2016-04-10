@@ -112,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Compositions\Composition.cs" />
+    <Compile Include="ErrorsHandler.cs" />
     <Compile Include="Extensions\BuildTracking.cs" />
     <Compile Include="Extensions\LogCreation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
