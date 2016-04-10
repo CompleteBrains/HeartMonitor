@@ -6,7 +6,7 @@ namespace Application.Compositions
 	{
 		protected override void Initialize()
 		{
-            Container.RegisterType<ViewModels.IShell, ViewModels.Shell>(new Constructor());
+            Container.RegisterType<ViewModels.IShell, ViewModels.Shell>();
             Container.RegisterType<Views.IDialog, Views.Dialog>();
 		}
 	}
