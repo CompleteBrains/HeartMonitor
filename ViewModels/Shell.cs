@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO.Ports;
 using System.Linq;
 using System.Timers;
+using System.Windows.Threading;
 using Caliburn.Micro;
 using MoreLinq;
 using ViewModels.Services;
@@ -60,8 +61,9 @@ namespace ViewModels
                              .Aggregate((a, b) => a + b);
 
             Received = $"Data: {data}";
+            Dispatcher.CurrentDispatcher.Invoke(() => Data.Add(Data.Count + 1, buffer[0]), DispatcherPriority.Send);
 
-            Data.Add(Data.Count+1, buffer[0]);
+            ;
         }
     }
 }
