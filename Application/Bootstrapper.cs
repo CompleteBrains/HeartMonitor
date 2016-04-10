@@ -10,6 +10,7 @@ using Microsoft.Practices.Unity;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
+using ViewModels;
 using Singleton = Microsoft.Practices.Unity.ContainerControlledLifetimeManager;
 
 
@@ -37,7 +38,7 @@ namespace Application
 		{
 			AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
 			ViewLocator.NameTransformer.AddRule("Model", string.Empty);
-//			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (Views.Panel.Shell)));
+			AssemblySource.Instance.Add(Assembly.GetAssembly(typeof (Views.Shell)));
 
 			container.RegisterType<IWindowManager, WindowManager>(new Singleton());
 			container.RegisterType<IEventAggregator, EventAggregator>(new Singleton());
@@ -81,7 +82,7 @@ namespace Application
 
 		protected override void OnStartup(object sender, StartupEventArgs e)
 		{
-//			DisplayRootViewFor<IShell>();
+			DisplayRootViewFor<IShell>();
 		}
 
 		protected override void OnExit(object sender, EventArgs e)
