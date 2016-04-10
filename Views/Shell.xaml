@@ -1,0 +1,25 @@
+<Window x:Class="Views.Panel.Shell"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Width="800" Height="650">
+	<Window.Resources>
+		<Style x:Key="ControlStyle">
+            <Setter Property="Control.MinWidth" Value="100"/>
+            <Setter Property="Control.Margin" Value="5"/>
+            <Setter Property="Control.FontSize" Value="20"/>
+            <Setter Property="Control.VerticalAlignment" Value="Center"/>
+		</Style>
+	</Window.Resources>
+	<ScrollViewer VerticalScrollBarVisibility="Auto">
+		<StackPanel>
+			<ItemsControl Name="Items"/>
+			<StackPanel Orientation="Horizontal">
+				<Button Name="Start" Content="Rec" Style="{StaticResource ControlStyle}" Background="OrangeRed" Foreground="White"/>
+                <Button Name="Stop" Content="Stop" Style="{StaticResource ControlStyle}"/>
+                <TextBlock Name="Timer" Style="{StaticResource ControlStyle}" />
+			    <Button Name="SelectFolder" Content="Output" Style="{StaticResource ControlStyle}" HorizontalAlignment="Right"/>
+			    <TextBlock Name="Output" Style="{StaticResource ControlStyle}" FontSize="14" MaxWidth="300" />
+			</StackPanel>
+		</StackPanel>
+	</ScrollViewer>
+</Window>
