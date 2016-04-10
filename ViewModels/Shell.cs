@@ -27,15 +27,15 @@ namespace ViewModels
             receive.Open();
 
             random = new Random();
-            Timer timer = new Timer(100);
+            Timer timer = new Timer(1000);
             timer.Elapsed += (s, a) => Send();
             timer.Start();
 
-            Data = new List<byte>();
+            Data = new Dictionary<int, byte>();
         }
 
         [Notify] public string Received { get; set; }
-        [Notify] public List<byte> Data { get; set; }
+        [Notify] public Dictionary<int, byte> Data { get; set; }
 	    
 	    public void Send()
 	    {
@@ -61,7 +61,7 @@ namespace ViewModels
 
             Received = $"Data: {data}";
 
-            Data.Add(buffer[0]);
+            Data.Add(Data.Count, buffer[0]);
         }
     }
 }
