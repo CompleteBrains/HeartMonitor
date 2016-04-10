@@ -9,14 +9,13 @@ namespace ViewModels
     public class Shell : Conductor<IScreen>.Collection.AllActive, IShell
 	{
         private readonly SerialPort send;
-        private SerialPort receive;
 
         public Shell()
 		{
-            send = new SerialPort("COM2");
+            send = new SerialPort("COM2", 115200, Parity.None, 8, StopBits.One);
             send.Open();
 
-            receive = new SerialPort("COM3");
+            var receive = new SerialPort("COM3", 115200, Parity.None, 8, StopBits.One);
             receive.DataReceived += OnDataReceived;
             receive.Open();
 		}
