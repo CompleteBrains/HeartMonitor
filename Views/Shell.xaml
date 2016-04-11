@@ -26,7 +26,7 @@
                                    GridLineStyle="{StaticResource GridLineStyle}"
                                    MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" 
                                    Maximum="100"/>
-                <charts:LinearAxis Orientation="Y" ShowGridLines="True" Maximum="255"
+                <charts:LinearAxis Orientation="Y" ShowGridLines="True" Maximum="255" Minimum="0" 
 	                               GridLineStyle="{StaticResource GridLineStyle}"
 	                               MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
             </charts:Chart.Axes>
