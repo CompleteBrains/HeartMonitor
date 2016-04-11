@@ -4,19 +4,31 @@
                     xmlns:toolkit="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
                     xmlns:primitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit">
 
-
-    <Style x:Key="AxisLabelStyle" TargetType="charts:NumericAxisLabel">
-        <Setter Property="Foreground" Value="DarkGray"></Setter>
+    <Style x:Key="LinearAxisStyle" TargetType="charts:LinearAxis">
+        <Setter Property="ShowGridLines" Value="True" />
+        <Setter Property="AxisLabelStyle">
+            <Setter.Value>
+                <Style TargetType="charts:NumericAxisLabel">
+                    <Setter Property="Foreground" Value="DarkGray" />
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="GridLineStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type Line}">
+                    <Setter Property="StrokeThickness" Value="0.5"/>
+                    <Setter Property="Stroke" Value="DarkGray"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="MajorTickMarkStyle">
+            <Setter.Value>
+                <Style TargetType="{x:Type Line}">
+                    <Setter Property="Stroke" Value="Transparent"/>
+                </Style>
+            </Setter.Value>
+        </Setter>
     </Style>
-    
-    <Style x:Key="MajorTickMarkStyle" TargetType="{x:Type Line}">
-        <Setter Property="Stroke" Value="Transparent"/>
-	</Style>
-
-    <Style x:Key="GridLineStyle" TargetType="{x:Type Line}">
-		<Setter Property="StrokeThickness" Value="0.5"/>
-        <Setter Property="Stroke" Value="DarkGray"/>
-	</Style>
 
     <Style x:Key="PlotAreaStyle" TargetType="{x:Type Grid}">
 		<Setter Property="Background" Value="White"/>

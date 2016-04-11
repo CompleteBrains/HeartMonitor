@@ -22,14 +22,8 @@
             <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key" 
                                DataPointStyle="{StaticResource LineDataPointStyle}" />
             <charts:Chart.Axes>
-                <charts:LinearAxis Orientation="X" ShowGridLines="True"
-                                   AxisLabelStyle="{StaticResource AxisLabelStyle}"
-                                   GridLineStyle="{StaticResource GridLineStyle}"
-                                   MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
-                <charts:LinearAxis Orientation="Y" ShowGridLines="True" Maximum="255" Minimum="0" 
-	                               AxisLabelStyle="{StaticResource AxisLabelStyle}"
-                                   GridLineStyle="{StaticResource GridLineStyle}"
-	                               MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
+                <charts:LinearAxis Orientation="X" Style="{StaticResource LinearAxisStyle}" />
+                <charts:LinearAxis Orientation="Y" Maximum="255" Minimum="0" Style="{StaticResource LinearAxisStyle}" />
             </charts:Chart.Axes>
         </charts:Chart>
     </StackPanel>
