@@ -22,9 +22,10 @@
             <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key" 
                                DataPointStyle="{StaticResource LineDataPointStyle}" />
             <charts:Chart.Axes>
-                <charts:DateTimeAxis Orientation="X" ShowGridLines="True"  IntervalType="Seconds" 
+                <charts:LinearAxis Orientation="X" ShowGridLines="True"
                                    GridLineStyle="{StaticResource GridLineStyle}"
-                                   MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
+                                   MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" 
+                                   Maximum="100"/>
                 <charts:LinearAxis Orientation="Y" ShowGridLines="True" Maximum="255"
 	                               GridLineStyle="{StaticResource GridLineStyle}"
 	                               MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
