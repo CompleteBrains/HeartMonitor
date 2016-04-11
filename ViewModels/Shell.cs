@@ -17,6 +17,7 @@ namespace ViewModels
         private readonly SerialPort send;
         private SerialPort receive;
         private readonly Random random;
+        private int counter;
 
         public Shell()
 		{
@@ -28,12 +29,14 @@ namespace ViewModels
             receive.Open();
 
             random = new Random();
-            Timer timer = new Timer(1000);
+            Timer timer = new Timer(500);
             timer.Elapsed += (s, a) => Send();
             timer.Start();
 
             Data = new ObservableDictionary<int, byte>();
-        }
+            Enumerable.Range(1, 50).ForEach(index => Data.Add(index, 0));
+            counter = Data.Count;
+		}
 
         [Notify] public string Received { get; set; }
         [Notify] public ObservableDictionary<int, byte> Data { get; set; }
@@ -62,7 +65,14 @@ namespace ViewModels
 
             Received = $"Data: {buffer[0]}";
 
-            Execute.OnUIThread(() => Data.Add(Data.Count + 1, buffer[0]));
+            Execute.OnUIThread(() => Add(buffer[0]));
         }
-    }
+
+        private void Add(byte value)
+        {
+            counter++;
+            Data.Remove(Data.First().Key);
+            Data.Add(counter, value);
+        }
+	}
 }
