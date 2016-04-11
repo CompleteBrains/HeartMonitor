@@ -21,6 +21,11 @@
         <charts:Chart Name="Data" MinHeight="500" Template="{StaticResource ChartTemplate}">
             <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key" 
                                DataPointStyle="{StaticResource LineDataPointStyle}" />
+            <charts:Chart.Axes>
+                <charts:LinearAxis Orientation="Y" ShowGridLines="True" Maximum="255"
+	                               GridLineStyle="{StaticResource GridLineStyle}"
+	                               MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
+            </charts:Chart.Axes>
         </charts:Chart>
     </StackPanel>
 </Window>

@@ -11,14 +11,12 @@
 	</Style>
 
 	<Style x:Key="MajorTickMarkStyle" TargetType="{x:Type Line}">
-		<Setter Property="Stroke" Value="Transparent"/>
-		<Setter Property="X2" Value="4"/>
-		<Setter Property="Y2" Value="4"/>
+        <Setter Property="Stroke" Value="Transparent"/>
 	</Style>
 
 	<Style x:Key="GridLineStyle" TargetType="{x:Type Line}">
-		<Setter Property="StrokeThickness" Value="0.1"/>
-		<Setter Property="Stroke" Value="LightGray"/>
+		<Setter Property="StrokeThickness" Value="0.5"/>
+		<Setter Property="Stroke" Value="Gray"/>
 	</Style>
 
 	<Style x:Key="PlotAreaStyle" TargetType="{x:Type Grid}">
