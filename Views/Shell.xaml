@@ -8,7 +8,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style x:Key="Style">
+            <Style x:Key="General">
                 <Setter Property="Control.HorizontalAlignment" Value="Left" />
                 <Setter Property="Control.FontSize" Value="26" />
                 <Setter Property="Control.Margin" Value="20"></Setter>
@@ -16,14 +16,11 @@
         </ResourceDictionary>
     </Window.Resources>
     <StackPanel>
-        <Button Name="Send" Content="Send" Style="{StaticResource Style}" />
-        <TextBlock Name="Received" Style="{StaticResource Style}"/>
+        <Button Name="Send" Content="Send" Style="{StaticResource General}" />
+        <TextBlock Name="Received" Style="{StaticResource General}"/>
         <charts:Chart Name="Data" MinHeight="500" Template="{StaticResource ChartTemplate}">
-            <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key">
-                <charts:LineSeries.DependentRangeAxis>
-                    <charts:LinearAxis Maximum="255" Orientation="Y"></charts:LinearAxis>
-                </charts:LineSeries.DependentRangeAxis>
-            </charts:LineSeries>
-        </charts:Chart> 
+            <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key" 
+                               DataPointStyle="{StaticResource LineDataPointStyle}" />
+        </charts:Chart>
     </StackPanel>
 </Window>
