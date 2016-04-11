@@ -5,6 +5,9 @@
         Width="800" Height="800">
     <Window.Resources>
         <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
             <Style x:Key="Style">
                 <Setter Property="Control.HorizontalAlignment" Value="Left" />
                 <Setter Property="Control.FontSize" Value="26" />
@@ -15,7 +18,7 @@
     <StackPanel>
         <Button Name="Send" Content="Send" Style="{StaticResource Style}" />
         <TextBlock Name="Received" Style="{StaticResource Style}"/>
-        <charts:Chart Name="Data" MinHeight="500">
+        <charts:Chart Name="Data" MinHeight="500" Template="{StaticResource ChartTemplate}">
             <charts:LineSeries ItemsSource="{Binding Data}" DependentValuePath="Value" IndependentValuePath="Key">
                 <charts:LineSeries.DependentRangeAxis>
                     <charts:LinearAxis Maximum="255" Orientation="Y"></charts:LinearAxis>
