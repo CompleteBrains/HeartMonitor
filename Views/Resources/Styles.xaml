@@ -68,35 +68,4 @@
 	    </Setter>
 	</Style>
 
-	<Style x:Key="AreaDataPointStyle" TargetType="{x:Type charts:AreaDataPoint}">
-        <Setter Property="Background" Value="CadetBlue"/>
-		<Setter Property="BorderBrush" Value="Gray"/>
-		<Setter Property="BorderThickness" Value="1"/>
-		<Setter Property="IsTabStop" Value="False"/>
-		<Setter Property="Width" Value="14"/>
-		<Setter Property="Height" Value="14"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type charts:AreaDataPoint}">
-					<Grid x:Name="Root" Opacity="0">
-						<Grid.ToolTip>
-							<ContentControl Content="{TemplateBinding FormattedDependentValue}"/>
-						</Grid.ToolTip>
-						<Ellipse Fill="{TemplateBinding Background}" Stroke="{TemplateBinding BorderBrush}"/>
-						<Ellipse RenderTransformOrigin="0.661,0.321">
-							<Ellipse.Fill>
-								<RadialGradientBrush GradientOrigin="0.681,0.308">
-									<GradientStop Color="Transparent"/>
-									<GradientStop Color="#FF3D3A3A" Offset="1"/>
-								</RadialGradientBrush>
-							</Ellipse.Fill>
-						</Ellipse>
-						<Ellipse x:Name="SelectionHighlight" Fill="Red" Opacity="0"/>
-						<Ellipse x:Name="MouseOverHighlight" Fill="White" Opacity="0"/>
-					</Grid>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
-
 </ResourceDictionary>
