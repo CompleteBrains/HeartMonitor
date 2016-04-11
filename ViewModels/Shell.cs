@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
 using System.Timers;
@@ -15,6 +17,7 @@ namespace ViewModels
         private readonly SerialPort send;
         private SerialPort receive;
         private readonly Random random;
+        private int counter;
 
         public Shell()
 		{
@@ -26,13 +29,17 @@ namespace ViewModels
             receive.Open();
 
             random = new Random();
-            Timer timer = new Timer(100);
+            Timer timer = new Timer(500);
             timer.Elapsed += (s, a) => Send();
             timer.Start();
-        }
 
-        [Notify]
-	    public string Received { get; set; }
+            Data = new ObservableDictionary<int, byte>();
+            Enumerable.Range(1, 50).ForEach(index => Data.Add(index, 0));
+            counter = Data.Count;
+		}
+
+        [Notify] public string Received { get; set; }
+        [Notify] public ObservableDictionary<int, byte> Data { get; set; }
 	    
 	    public void Send()
 	    {
@@ -40,7 +47,6 @@ namespace ViewModels
 	        random.NextBytes(buffer);
 
             send.Write(buffer, 0, buffer.Length);
-
         }
 
         private void OnDataReceived(object sender, SerialDataReceivedEventArgs serialDataReceivedEventArgs)
@@ -57,7 +63,16 @@ namespace ViewModels
             var data = buffer.Select(b => b.ToString("X"))
                              .Aggregate((a, b) => a + b);
 
-            Received = $"Data: {data}";
+            Received = $"Data: {buffer[0]}";
+
+            Execute.OnUIThread(() => Add(buffer[0]));
         }
-    }
+
+        private void Add(byte value)
+        {
+            counter++;
+            Data.Remove(Data.First().Key);
+            Data.Add(counter, value);
+        }
+	}
 }
