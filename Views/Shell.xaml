@@ -23,10 +23,12 @@
                                DataPointStyle="{StaticResource LineDataPointStyle}" />
             <charts:Chart.Axes>
                 <charts:LinearAxis Orientation="X" ShowGridLines="True"
+                                   AxisLabelStyle="{StaticResource AxisLabelStyle}"
                                    GridLineStyle="{StaticResource GridLineStyle}"
                                    MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
                 <charts:LinearAxis Orientation="Y" ShowGridLines="True" Maximum="255" Minimum="0" 
-	                               GridLineStyle="{StaticResource GridLineStyle}"
+	                               AxisLabelStyle="{StaticResource AxisLabelStyle}"
+                                   GridLineStyle="{StaticResource GridLineStyle}"
 	                               MajorTickMarkStyle="{StaticResource MajorTickMarkStyle}" />
             </charts:Chart.Axes>
         </charts:Chart>

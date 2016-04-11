@@ -5,26 +5,25 @@
                     xmlns:primitives="clr-namespace:System.Windows.Controls.DataVisualization.Charting.Primitives;assembly=System.Windows.Controls.DataVisualization.Toolkit">
 
 
-    <Style x:Key="DateTimeAxisLabelStyle" TargetType="charts:DateTimeAxisLabel">
-		<Setter Property="DaysIntervalStringFormat" Value="{}{0:d MMM}"/>
-		<Setter Property="WeeksIntervalStringFormat" Value="{}{0:d MMM}"/>
-	</Style>
-
-	<Style x:Key="MajorTickMarkStyle" TargetType="{x:Type Line}">
+    <Style x:Key="AxisLabelStyle" TargetType="charts:NumericAxisLabel">
+        <Setter Property="Foreground" Value="DarkGray"></Setter>
+    </Style>
+    
+    <Style x:Key="MajorTickMarkStyle" TargetType="{x:Type Line}">
         <Setter Property="Stroke" Value="Transparent"/>
 	</Style>
 
-	<Style x:Key="GridLineStyle" TargetType="{x:Type Line}">
+    <Style x:Key="GridLineStyle" TargetType="{x:Type Line}">
 		<Setter Property="StrokeThickness" Value="0.5"/>
-		<Setter Property="Stroke" Value="Gray"/>
+        <Setter Property="Stroke" Value="DarkGray"/>
 	</Style>
 
-	<Style x:Key="PlotAreaStyle" TargetType="{x:Type Grid}">
+    <Style x:Key="PlotAreaStyle" TargetType="{x:Type Grid}">
 		<Setter Property="Background" Value="White"/>
 		<Setter Property="ShowGridLines" Value="True"/>
 	</Style>
 
-	<ControlTemplate x:Key="ChartTemplate" TargetType="charts:Chart">
+    <ControlTemplate x:Key="ChartTemplate" TargetType="charts:Chart">
 		<Border Background="{TemplateBinding Control.Background}" BorderBrush="Transparent" BorderThickness="0"
 		        Padding="{TemplateBinding Control.Padding}">
 			<Grid>
@@ -46,7 +45,7 @@
 		</Border>
 	</ControlTemplate>
 
-	<Style x:Key="LineDataPointStyle" TargetType="charts:LineDataPoint">
+    <Style x:Key="LineDataPointStyle" TargetType="charts:LineDataPoint">
 		<Setter Property="Background" Value="CadetBlue"/>
 		<Setter Property="BorderBrush" Value="Red"/>
 		<Setter Property="BorderThickness" Value="4"/>
@@ -57,9 +56,8 @@
 	        <Setter.Value>
 	            <ControlTemplate TargetType="charts:LineDataPoint">
 	                <Canvas x:Name="Root" Opacity="1" ToolTipService.InitialShowDelay="0">
-	                    <Ellipse StrokeThickness="1" Stroke="White" Fill="{TemplateBinding Background}" Width="10"
-	                             Height="10" Canvas.Left="-5"
-	                             Canvas.Top="-5" Margin="0" />
+	                    <Ellipse StrokeThickness="1" Stroke="White" Fill="{TemplateBinding Background}" 
+                                 Width="6" Height="6" Canvas.Left="-3" Canvas.Top="-3" Margin="0" />
 	                </Canvas>
 	            </ControlTemplate>
 	        </Setter.Value>
